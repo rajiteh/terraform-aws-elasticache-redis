@@ -51,7 +51,7 @@ resource "aws_elasticache_parameter_group" "default" {
 resource "aws_elasticache_replication_group" "default" {
   count = "${var.enabled == "true" ? 1 : 0}"
 
-  auth_token                    = "${var.auth_token}"
+
   replication_group_id          = "${var.replication_group_id == "" ? module.label.id : var.replication_group_id}"
   replication_group_description = "${module.label.id}"
   node_type                     = "${var.instance_type}"
@@ -65,8 +65,8 @@ resource "aws_elasticache_replication_group" "default" {
   maintenance_window            = "${var.maintenance_window}"
   notification_topic_arn        = "${var.notification_topic_arn}"
   engine_version                = "${var.engine_version}"
-  at_rest_encryption_enabled    = "${var.at_rest_encryption_enabled}"
-  transit_encryption_enabled    = "${var.transit_encryption_enabled}"
+  at_rest_encryption_enabled    = "false"
+  transit_encryption_enabled    = "false"
 
   tags = "${module.label.tags}"
 }
